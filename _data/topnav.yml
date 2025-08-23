@@ -5,6 +5,14 @@ topnav:
   items:
     - title: GitHub
       external_url: https://github.com/UIU-Developers-Hub
+    - title: About Us
+      url: /about.html
+    - title: Getting Started
+      url: /getting-started.html
+    - title: How to Contribute
+      url: /how-to-contribute.html
+    - title: Contributors List
+      url: /contributorsList.html
 
 #Topnav dropdowns
 topnav_dropdowns:
