@@ -18,4 +18,5 @@ Below are the members who have contributed to UIU Developers Hub Documentation. 
 ## Contributors
 
 * [Provab Mongchaw Khyang](https://github.com/notMONGCHAW)
+* [Sifat Ali](https://github.com/SifatAli008)
 <!-- Add your name below this line -->
