@@ -1,0 +1,39 @@
+name: Auto Merge Specific File
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Check changed files
+        id: file-check
+        uses: tj-actions/changed-files@v44
+        with:
+          files: path/to/your/specific-file.md
+
+      - name: Get PR info
+        id: pr-info
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            return pr.mergeable_state;
+
+      - name: Auto-merge PR if only the specific file changed and no conflicts
+        if: steps.file-check.outputs.only_changed == 'true' && steps.pr-info.outputs.result == 'clean'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            })
